@@ -21,9 +21,6 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v19
 
-      - name: Enable Nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@v13
-
       - name: Build release bundle
         run: |
           nix develop ./nix --command sbt -batch bundle
