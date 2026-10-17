@@ -23,7 +23,11 @@ jobs:
 
       - name: Build release bundle
         run: |
-          nix develop ./nix --command sbt -batch bundle
+          nix develop ./nix --command bash -lc '
+            export SPLICE_ROOT="$GITHUB_WORKSPACE"
+            export PATH="$SPLICE_ROOT/build-tools:$PATH"
+            sbt -batch bundle
+          '
 
       - name: Upload release bundle
         uses: actions/upload-artifact@v4
