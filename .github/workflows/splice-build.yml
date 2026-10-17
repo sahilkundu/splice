@@ -15,11 +15,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-<<<<<<< HEAD
-=======
           fetch-depth: 0
           fetch-tags: true
->>>>>>> 5acd4be50 (build file added)
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v19
