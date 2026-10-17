@@ -1,0 +1,33 @@
+name: Build Splice Bundle
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v19
+
+      - name: Enable Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@v13
+
+      - name: Build release bundle
+        run: |
+          nix develop ./nix --command sbt -batch bundle
+
+      - name: Upload release bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: splice-node
+          path: apps/app/target/release/splice-node
